@@ -111,7 +111,7 @@ const NameGeneratorForm = () => {
               Registrar Domínio
             </a>
           </div>
-          <div className="grid grid-cols-1 gap-4">
+          <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} gap-4`}>
             {generatedNames.map((name, index) => (
               <div
                 key={index}
