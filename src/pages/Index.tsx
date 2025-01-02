@@ -5,10 +5,10 @@ const Index = () => {
     <div className="min-h-screen gradient-bg py-12 px-4">
       <div className="max-w-4xl mx-auto text-center mb-12">
         <h1 className="text-4xl font-bold text-white mb-4">
-          Gerador de Nomes para Empresas
+          Crie o Nome Ideal para Sua Empresa: Descubra o Perfeito para Seu Negócio
         </h1>
         <p className="text-white/90 text-lg">
-          Crie o nome perfeito para o seu negócio em segundos
+          Inspire-se com Ideias de Nomes Únicas para Fortalecer Sua Marca. É 100% Gratuito! Basta inserir palavras-chave relevantes e encontrar opções incríveis.
         </p>
       </div>
       <NameGeneratorForm />

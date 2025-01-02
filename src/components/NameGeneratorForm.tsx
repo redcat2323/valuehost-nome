@@ -108,23 +108,26 @@ const NameGeneratorForm = () => {
   return (
     <div className="w-full max-w-2xl mx-auto p-6">
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Palavra-chave do seu negócio</label>
-          <Input
-            placeholder="Ex: café, tech, pet..."
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            className="glass-effect"
-          />
+        <div className="flex gap-4">
+          <div className="flex-1">
+            <label className="text-sm font-medium mb-2 block text-left">Palavra-chave do seu negócio</label>
+            <Input
+              placeholder="Ex: café, tech, pet..."
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              className="glass-effect"
+            />
+          </div>
+          <div className="flex items-end">
+            <Button 
+              type="submit" 
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-10"
+              disabled={isLoading}
+            >
+              {isLoading ? "Gerando sugestões..." : "Gerar Nomes"}
+            </Button>
+          </div>
         </div>
-
-        <Button 
-          type="submit" 
-          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
-          disabled={isLoading}
-        >
-          {isLoading ? "Gerando sugestões..." : "Gerar Nomes"}
-        </Button>
       </form>
 
       {generatedNames.length > 0 && (
