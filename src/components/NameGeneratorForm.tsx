@@ -136,15 +136,16 @@ const NameGeneratorForm = () => {
             {generatedNames.map((name, index) => (
               <div
                 key={index}
-                className="glass-effect p-4 rounded-lg flex justify-between items-center animate-fade-in"
+                className="glass-effect p-4 rounded-lg flex justify-between items-center animate-fade-in hover:bg-white/10 transition-all duration-300 group relative overflow-hidden"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <span className="font-medium">{name}</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="font-medium relative z-10">{name}</span>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => copyToClipboard(name)}
-                  className="hover:bg-white/20"
+                  className="relative z-10 hover:bg-white/20 transition-colors"
                 >
                   <Copy className="h-4 w-4" />
                 </Button>
