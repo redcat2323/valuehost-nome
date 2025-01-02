@@ -13,27 +13,22 @@ const NameGeneratorForm = () => {
 
   const generateNamesWithAI = async (keyword: string) => {
     try {
-      const response = await fetch(
-        'https://vwbtwzzrgeeskcuffxwq.supabase.co/functions/v1/generate-names',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`,
-          },
-          body: JSON.stringify({ keyword }),
-        }
-      );
+      const { data, error } = await supabase.functions.invoke('generate-names', {
+        body: { keyword }
+      });
 
-      const data = await response.json();
-      
-      if (data.error) {
-        throw new Error(data.error);
+      if (error) {
+        console.error("Erro ao chamar a função:", error);
+        throw new Error(error.message);
+      }
+
+      if (!data?.suggestions) {
+        throw new Error("Nenhuma sugestão retornada");
       }
 
       return data.suggestions;
     } catch (error) {
-      console.error("Error generating names:", error);
+      console.error("Erro ao gerar nomes:", error);
       throw error;
     }
   };
@@ -53,7 +48,12 @@ const NameGeneratorForm = () => {
     try {
       const names = await generateNamesWithAI(keyword);
       setGeneratedNames(names);
+      toast({
+        title: "Sucesso!",
+        description: "Nomes gerados com sucesso",
+      });
     } catch (error) {
+      console.error("Erro ao gerar nomes:", error);
       toast({
         title: "Erro",
         description: "Erro ao gerar nomes. Por favor, tente novamente mais tarde.",

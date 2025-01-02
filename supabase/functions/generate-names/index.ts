@@ -1,5 +1,4 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -7,8 +6,9 @@ const corsHeaders = {
 };
 
 serve(async (req) => {
+  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
+    return new Response(null, { headers: corsHeaders });
   }
 
   try {
@@ -18,6 +18,8 @@ serve(async (req) => {
     if (!OPENAI_API_KEY) {
       throw new Error('OPENAI_API_KEY não encontrada');
     }
+
+    console.log('Gerando nomes para a palavra-chave:', keyword);
 
     const prompt = `Atue como um especialista em branding e naming.
     Crie 20 sugestões de nomes criativos e memoráveis para uma empresa/marca usando a palavra-chave: "${keyword}".
@@ -44,13 +46,15 @@ serve(async (req) => {
       }),
     });
 
-    const data = await response.json();
-    
     if (!response.ok) {
-      console.error('OpenAI API error:', data);
-      throw new Error(data.error?.message || 'Erro ao gerar nomes');
+      const error = await response.json();
+      console.error('Erro na resposta da OpenAI:', error);
+      throw new Error(error.error?.message || 'Erro ao gerar nomes');
     }
 
+    const data = await response.json();
+    console.log('Resposta da OpenAI recebida com sucesso');
+    
     const suggestions = data.choices[0].message.content
       .split('\n')
       .filter((name: string) => name.trim());
@@ -65,14 +69,14 @@ serve(async (req) => {
       },
     );
   } catch (error) {
-    console.error('Error in generate-names function:', error);
+    console.error('Erro na função generate-names:', error);
     return new Response(
       JSON.stringify({ error: error.message }),
       { 
-        status: 400,
+        status: 500,
         headers: { 
           ...corsHeaders,
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json' 
         },
       },
     );
