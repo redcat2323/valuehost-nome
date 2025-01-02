@@ -68,10 +68,24 @@ export default {
             opacity: "1",
             transform: "translateY(0)"
           }
+        },
+        "gradient-x": {
+          "0%, 100%": {
+            "background-position": "200% 50%",
+            "transform": "translateX(-20px)"
+          },
+          "50%": {
+            "background-position": "0% 50%",
+            "transform": "translateX(20px)"
+          }
         }
       },
       animation: {
-        "fade-in": "fade-in 0.5s ease-out forwards"
+        "fade-in": "fade-in 0.5s ease-out forwards",
+        "gradient-x": "gradient-x 15s ease infinite"
+      },
+      backgroundSize: {
+        "200%": "200% auto"
       }
     }
   },
