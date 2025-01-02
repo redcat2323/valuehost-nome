@@ -22,14 +22,6 @@ const Index = () => {
         <p className="text-white/90 text-lg mb-8">
           Inspire-se com ideias de nomes únicos para fortalecer sua marca. É 100% gratuito! Basta inserir palavras-chave relevantes e encontrar opções incríveis.
         </p>
-        <a
-          href="https://painel.napoleon.com.br/cart.php?a=add&domain=register"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center px-6 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-all duration-300 animate-fade-in shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5"
-        >
-          Registrar Domínio
-        </a>
       </div>
       <NameGeneratorForm />
     </div>
