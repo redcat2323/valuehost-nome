@@ -12,7 +12,7 @@ const NameGeneratorForm = () => {
 
   const generateNamesWithAI = async (keyword: string) => {
     const prompt = `Atue como um especialista em branding e naming.
-    Crie 10 sugestões de nomes criativos e memoráveis para uma empresa/marca usando a palavra-chave: "${keyword}".
+    Crie 20 sugestões de nomes criativos e memoráveis para uma empresa/marca usando a palavra-chave: "${keyword}".
     
     Considere:
     - Nomes curtos e fáceis de lembrar
