@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -9,16 +9,6 @@ const NameGeneratorForm = () => {
   const [generatedNames, setGeneratedNames] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-
-  useEffect(() => {
-    // Se não houver chave da API no localStorage, solicite ao usuário
-    if (!localStorage.getItem("OPENAI_API_KEY")) {
-      const apiKey = prompt("Por favor, insira sua chave da API OpenAI:");
-      if (apiKey) {
-        localStorage.setItem("OPENAI_API_KEY", apiKey);
-      }
-    }
-  }, []);
 
   const generateNamesWithAI = async (keyword: string) => {
     const prompt = `Atue como um especialista em branding e naming.
@@ -38,7 +28,7 @@ const NameGeneratorForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("OPENAI_API_KEY")}`,
+          Authorization: `Bearer sk-sua-chave-api-aqui`, // Substitua pela sua chave API
         },
         body: JSON.stringify({
           model: "gpt-4",
@@ -85,7 +75,7 @@ const NameGeneratorForm = () => {
     } catch (error) {
       toast({
         title: "Erro",
-        description: "Erro ao gerar nomes. Verifique sua chave da API.",
+        description: "Erro ao gerar nomes. Por favor, tente novamente mais tarde.",
         variant: "destructive",
       });
     } finally {
