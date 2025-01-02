@@ -110,9 +110,8 @@ const NameGeneratorForm = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex gap-4">
           <div className="flex-1">
-            <label className="text-sm font-medium mb-2 block text-left">Palavra-chave do seu negócio</label>
             <Input
-              placeholder="Ex: café, tech, pet..."
+              placeholder="Digite suas palavras-chave aqui"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               className="glass-effect"
