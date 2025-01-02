@@ -120,7 +120,7 @@ const NameGeneratorForm = () => {
 
         <Button 
           type="submit" 
-          className="w-full gradient-bg hover:opacity-90 transition-opacity"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
           disabled={isLoading}
         >
           {isLoading ? "Gerando sugestões..." : "Gerar Nomes"}
