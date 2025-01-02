@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Copy } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const NameGeneratorForm = () => {
   const [keyword, setKeyword] = useState("");
@@ -11,46 +12,26 @@ const NameGeneratorForm = () => {
   const { toast } = useToast();
 
   const generateNamesWithAI = async (keyword: string) => {
-    const prompt = `Atue como um especialista em branding e naming.
-    Crie 20 sugestões de nomes criativos e memoráveis para uma empresa/marca usando a palavra-chave: "${keyword}".
-    
-    Considere:
-    - Nomes curtos e fáceis de lembrar
-    - Possibilidade de registro de domínio
-    - Sonoridade agradável
-    - Potencial para construção de marca
-    - Use técnicas como: combinação de palavras, sufixos modernos, prefixos
-    
-    Retorne apenas os nomes, um por linha, sem explicações adicionais.`;
-
     try {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer sk-sua-chave-api-aqui`, // Substitua pela sua chave API
-        },
-        body: JSON.stringify({
-          model: "gpt-4",
-          messages: [
-            {
-              role: "user",
-              content: prompt,
-            },
-          ],
-          temperature: 0.7,
-        }),
-      });
+      const response = await fetch(
+        'https://vwbtwzzrgeeskcuffxwq.supabase.co/functions/v1/generate-names',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({ keyword }),
+        }
+      );
 
       const data = await response.json();
+      
       if (data.error) {
-        throw new Error(data.error.message);
+        throw new Error(data.error);
       }
 
-      const suggestions = data.choices[0].message.content
-        .split("\n")
-        .filter((name: string) => name.trim());
-      return suggestions;
+      return data.suggestions;
     } catch (error) {
       console.error("Error generating names:", error);
       throw error;
