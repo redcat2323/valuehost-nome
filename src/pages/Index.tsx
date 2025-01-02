@@ -1,3 +1,5 @@
+import NameGeneratorForm from "@/components/NameGeneratorForm";
+
 const Index = () => {
   return (
     <div className="min-h-screen gradient-bg py-8 sm:py-12 px-4">
