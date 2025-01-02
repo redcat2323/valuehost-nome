@@ -1,51 +1,100 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Copy } from "lucide-react";
-
-const industries = [
-  { value: "technology", label: "Tecnologia" },
-  { value: "food", label: "Alimentação" },
-  { value: "fashion", label: "Moda" },
-  { value: "health", label: "Saúde" },
-  { value: "education", label: "Educação" },
-  { value: "services", label: "Serviços" },
-];
 
 const NameGeneratorForm = () => {
   const [keyword, setKeyword] = useState("");
-  const [industry, setIndustry] = useState("");
   const [generatedNames, setGeneratedNames] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const generateNames = (baseWord: string) => {
-    const suffixes = ["Hub", "Tech", "Pro", "Go", "Now", "Lab", "Plus", "Mind", "Flow", "Sync"];
-    const prefixes = ["i", "e", "Smart", "Next", "Top", "Prime", "Meta", "Eco", "Bio", "Neo"];
+  const generateNamesWithAI = async (keyword: string) => {
+    const prompt = `Atue como um especialista em branding e naming.
+    Crie 10 sugestões de nomes criativos e memoráveis para uma empresa/marca usando a palavra-chave: "${keyword}".
     
-    const names = [];
-    // Generate with suffixes
-    names.push(...suffixes.map(suffix => `${baseWord}${suffix}`));
-    // Generate with prefixes
-    names.push(...prefixes.map(prefix => `${prefix}${baseWord}`));
+    Considere:
+    - Nomes curtos e fáceis de lembrar
+    - Possibilidade de registro de domínio
+    - Sonoridade agradável
+    - Potencial para construção de marca
+    - Use técnicas como: combinação de palavras, sufixos modernos, prefixos
     
-    return names;
+    Retorne apenas os nomes, um por linha, sem explicações adicionais.`;
+
+    try {
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("OPENAI_API_KEY")}`,
+        },
+        body: JSON.stringify({
+          model: "gpt-4",
+          messages: [
+            {
+              role: "user",
+              content: prompt,
+            },
+          ],
+          temperature: 0.7,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.error) {
+        throw new Error(data.error.message);
+      }
+
+      const suggestions = data.choices[0].message.content
+        .split("\n")
+        .filter((name: string) => name.trim());
+      return suggestions;
+    } catch (error) {
+      console.error("Error generating names:", error);
+      throw error;
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!keyword.trim() || !industry) {
+    if (!keyword.trim()) {
       toast({
         title: "Erro",
-        description: "Por favor, preencha todos os campos",
+        description: "Por favor, insira uma palavra-chave",
         variant: "destructive",
       });
       return;
     }
 
-    const names = generateNames(keyword);
-    setGeneratedNames(names);
+    if (!localStorage.getItem("OPENAI_API_KEY")) {
+      const apiKey = prompt("Por favor, insira sua chave da API OpenAI:");
+      if (apiKey) {
+        localStorage.setItem("OPENAI_API_KEY", apiKey);
+      } else {
+        toast({
+          title: "Erro",
+          description: "É necessária uma chave da API OpenAI para continuar",
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+
+    setIsLoading(true);
+    try {
+      const names = await generateNamesWithAI(keyword);
+      setGeneratedNames(names);
+    } catch (error) {
+      toast({
+        title: "Erro",
+        description: "Erro ao gerar nomes. Verifique sua chave da API.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const copyToClipboard = (name: string) => {
@@ -69,24 +118,12 @@ const NameGeneratorForm = () => {
           />
         </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Setor de atuação</label>
-          <Select value={industry} onValueChange={setIndustry}>
-            <SelectTrigger className="glass-effect">
-              <SelectValue placeholder="Selecione um setor" />
-            </SelectTrigger>
-            <SelectContent>
-              {industries.map((industry) => (
-                <SelectItem key={industry.value} value={industry.value}>
-                  {industry.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <Button type="submit" className="w-full gradient-bg hover:opacity-90 transition-opacity">
-          Gerar Nomes
+        <Button 
+          type="submit" 
+          className="w-full gradient-bg hover:opacity-90 transition-opacity"
+          disabled={isLoading}
+        >
+          {isLoading ? "Gerando sugestões..." : "Gerar Nomes"}
         </Button>
       </form>
 
