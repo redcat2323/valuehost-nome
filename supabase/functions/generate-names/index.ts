@@ -38,13 +38,19 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4',
+        model: 'gpt-4o-mini',
         messages: [{ role: 'user', content: prompt }],
         temperature: 0.7,
       }),
     });
 
     const data = await response.json();
+    
+    if (!response.ok) {
+      console.error('OpenAI API error:', data);
+      throw new Error(data.error?.message || 'Erro ao gerar nomes');
+    }
+
     const suggestions = data.choices[0].message.content
       .split('\n')
       .filter((name: string) => name.trim());
@@ -59,6 +65,7 @@ serve(async (req) => {
       },
     );
   } catch (error) {
+    console.error('Error in generate-names function:', error);
     return new Response(
       JSON.stringify({ error: error.message }),
       { 
