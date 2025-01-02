@@ -98,7 +98,17 @@ const NameGeneratorForm = () => {
 
       {generatedNames.length > 0 && (
         <div className="mt-8 space-y-4">
-          <h2 className="text-xl font-semibold mb-6">Sugestões de Nomes</h2>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold">Sugestões de Nomes</h2>
+            <a
+              href="https://painel.napoleon.com.br/cart.php?a=add&domain=register"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-6 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5"
+            >
+              Registrar Domínio
+            </a>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {generatedNames.map((name, index) => (
               <div
