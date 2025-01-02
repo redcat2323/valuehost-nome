@@ -71,33 +71,22 @@ export default {
         },
         "shimmer": {
           "0%": {
-            backgroundPosition: "200% 0",
-            transform: "scale(1)"
+            backgroundPosition: "100% 0",
+            opacity: "0.9"
           },
           "50%": {
-            backgroundPosition: "-200% 0",
-            transform: "scale(1.01)"
+            backgroundPosition: "0% 0",
+            opacity: "1"
           },
           "100%": {
-            backgroundPosition: "200% 0",
-            transform: "scale(1)"
-          }
-        },
-        "gradient-shift": {
-          "0%, 100%": {
-            transform: "rotate(-3deg) scale(1.05)",
-            opacity: "0.7"
-          },
-          "50%": {
-            transform: "rotate(3deg) scale(1.15)",
-            opacity: "0.4"
+            backgroundPosition: "100% 0",
+            opacity: "0.9"
           }
         }
       },
       animation: {
         "fade-in": "fade-in 0.5s ease-out forwards",
-        "shimmer": "shimmer 8s ease-in-out infinite",
-        "gradient-shift": "gradient-shift 10s ease-in-out infinite"
+        "shimmer": "shimmer 3s ease-in-out infinite"
       },
       backgroundSize: {
         "200%": "200% auto"
