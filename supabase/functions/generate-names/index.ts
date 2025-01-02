@@ -24,12 +24,18 @@ serve(async (req) => {
     const prompt = `Atue como um especialista em branding e naming.
     Crie 20 sugestões de nomes criativos e memoráveis para uma empresa/marca usando a palavra-chave: "${keyword}".
     
+    Requisitos específicos:
+    - 10 nomes devem estar na língua original da palavra-chave
+    - 10 nomes devem estar em inglês
+    - 10 nomes devem ser palavras únicas (sem combinações)
+    - 10 nomes podem ser combinações criativas de palavras
+    
     Considere:
     - Nomes curtos e fáceis de lembrar
     - Possibilidade de registro de domínio
     - Sonoridade agradável
     - Potencial para construção de marca
-    - Use técnicas como: combinação de palavras, sufixos modernos, prefixos
+    - Use técnicas como: sufixos modernos, prefixos quando apropriado
     
     Retorne apenas os nomes, um por linha, sem explicações adicionais.`;
 
