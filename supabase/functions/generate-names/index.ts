@@ -25,8 +25,8 @@ serve(async (req) => {
     Crie 20 sugestões de nomes criativos e memoráveis para uma empresa/marca usando a palavra-chave: "${keyword}".
     
     Requisitos específicos:
-    - 10 nomes devem estar na língua original da palavra-chave
-    - 10 nomes devem estar em inglês
+    - 12 nomes devem estar na língua original da palavra-chave (60%)
+    - 8 nomes devem estar em inglês (40%)
     - 10 nomes devem ser palavras únicas (sem combinações)
     - 10 nomes podem ser combinações criativas de palavras
     
