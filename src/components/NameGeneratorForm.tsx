@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -9,6 +9,16 @@ const NameGeneratorForm = () => {
   const [generatedNames, setGeneratedNames] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Se não houver chave da API no localStorage, solicite ao usuário
+    if (!localStorage.getItem("OPENAI_API_KEY")) {
+      const apiKey = prompt("Por favor, insira sua chave da API OpenAI:");
+      if (apiKey) {
+        localStorage.setItem("OPENAI_API_KEY", apiKey);
+      }
+    }
+  }, []);
 
   const generateNamesWithAI = async (keyword: string) => {
     const prompt = `Atue como um especialista em branding e naming.
@@ -66,20 +76,6 @@ const NameGeneratorForm = () => {
         variant: "destructive",
       });
       return;
-    }
-
-    if (!localStorage.getItem("OPENAI_API_KEY")) {
-      const apiKey = prompt("Por favor, insira sua chave da API OpenAI:");
-      if (apiKey) {
-        localStorage.setItem("OPENAI_API_KEY", apiKey);
-      } else {
-        toast({
-          title: "Erro",
-          description: "É necessária uma chave da API OpenAI para continuar",
-          variant: "destructive",
-        });
-        return;
-      }
     }
 
     setIsLoading(true);
