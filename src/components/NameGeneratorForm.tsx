@@ -127,7 +127,7 @@ const NameGeneratorForm = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="font-medium text-base sm:text-lg relative z-10 text-white group-hover:text-white transition-colors duration-300 break-all mr-2">
-                  {`${index + 1}. ${name}`}
+                  {name}
                 </span>
                 <Button
                   variant="ghost"
