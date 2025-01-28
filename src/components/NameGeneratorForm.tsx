@@ -83,7 +83,7 @@ const NameGeneratorForm = () => {
               placeholder="Digite suas palavras-chave aqui"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              className="glass-effect w-full"
+              className="w-full bg-white border-[#377dff] focus-visible:ring-[#377dff]"
             />
           </div>
           <div className={`${isMobile ? 'w-full' : 'flex items-end'}`}>
@@ -115,21 +115,20 @@ const NameGeneratorForm = () => {
             {generatedNames.map((name, index) => (
               <div
                 key={index}
-                className="glass-effect p-4 sm:p-6 rounded-lg flex justify-between items-center animate-fade-in hover:bg-white/10 transition-all duration-300 group relative overflow-hidden border border-white/10 shadow-lg"
+                className="bg-white p-4 sm:p-6 rounded-lg flex justify-between items-center animate-fade-in hover:bg-[#377dff]/5 transition-all duration-300 group relative overflow-hidden border border-[#377dff]/10 shadow-lg"
                 style={{ 
                   animationDelay: `${index * 0.1}s`,
-                  background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)'
                 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="font-medium text-base sm:text-lg relative z-10 text-white group-hover:text-primary transition-colors duration-300 break-all mr-2">{name}</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#377dff]/10 via-[#377dff]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="font-medium text-base sm:text-lg relative z-10 text-[#377dff] group-hover:text-[#377dff] transition-colors duration-300 break-all mr-2">{name}</span>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => copyToClipboard(name)}
-                  className="relative z-10 hover:bg-primary/20 transition-colors shrink-0"
+                  className="relative z-10 hover:bg-[#377dff]/20 transition-colors shrink-0"
                 >
-                  <Copy className="h-4 w-4 text-white group-hover:text-primary transition-colors" />
+                  <Copy className="h-4 w-4 text-[#377dff] group-hover:text-[#377dff] transition-colors" />
                 </Button>
               </div>
             ))}
