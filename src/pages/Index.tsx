@@ -17,7 +17,7 @@ const Index = () => {
           />
         </a>
         <h1 className="text-2xl sm:text-4xl font-bold mb-6 sm:mb-8 pb-2 bg-clip-text text-transparent bg-gradient-to-r from-[#377dff] to-[#377dff] animate-shimmer relative">
-          Crie o Nome Ideal para Sua Empresa: Descubra o Nome Perfeito para Seu Negócio
+          Crie o Nome Ideal para Seu Novo Negócio
           <div className="absolute inset-0 blur-[80px] bg-gradient-to-r from-[#377dff]/30 to-[#377dff]/30 animate-pulse opacity-30 -z-10"></div>
         </h1>
         <p className="text-base sm:text-lg text-[#333333] mb-6 sm:mb-8 px-4">
