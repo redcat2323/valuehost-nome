@@ -8,12 +8,12 @@ const Index = () => {
           href="https://www.valuehost.com.br" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="inline-block"
+          className="inline-block group"
         >
           <img 
             src="https://www.valuehost.com.br/assets/svg/logo/logo.svg" 
             alt="ValueHost Logo" 
-            className="h-12 sm:h-16 mx-auto mb-6 sm:mb-8 animate-fade-in hover:opacity-80 transition-opacity"
+            className="h-12 sm:h-16 mx-auto mb-6 sm:mb-8 transition-transform duration-700 ease-in-out group-hover:scale-110 animate-[pulse_3s_ease-in-out_infinite]"
           />
         </a>
         <h1 className="text-2xl sm:text-4xl font-bold mb-6 sm:mb-8 pb-2 bg-clip-text text-transparent bg-gradient-to-r from-[#377dff] to-[#377dff] animate-shimmer relative">
