@@ -20,7 +20,7 @@ const Index = () => {
           Crie o Nome Ideal para Sua Empresa: Descubra o Nome Perfeito para Seu Negócio
           <div className="absolute inset-0 blur-[80px] bg-gradient-to-r from-[#377dff]/30 to-[#377dff]/30 animate-pulse opacity-30 -z-10"></div>
         </h1>
-        <p className="text-base sm:text-lg text-[#377dff]/90 mb-6 sm:mb-8 px-4">
+        <p className="text-base sm:text-lg text-[#333333] mb-6 sm:mb-8 px-4">
           Inspire-se com ideias de nomes únicos para fortalecer sua marca. É 100% gratuito! Basta inserir palavras-chave relevantes e encontrar opções incríveis.
         </p>
       </div>

@@ -83,7 +83,7 @@ const NameGeneratorForm = () => {
               placeholder="Digite suas palavras-chave aqui"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              className="w-full bg-white border-[#377dff] focus-visible:ring-[#377dff]"
+              className="w-full bg-white border-[#377dff] focus-visible:ring-[#377dff] placeholder:text-gray-400"
             />
           </div>
           <div className={`${isMobile ? 'w-full' : 'flex items-end'}`}>
@@ -103,7 +103,7 @@ const NameGeneratorForm = () => {
           <div className={`${isMobile ? 'flex flex-col gap-4' : 'flex justify-between items-center'} mb-6`}>
             <h2 className="text-xl font-semibold">Sugestões de Nomes</h2>
             <a
-              href="https://painel.napoleon.com.br/cart.php?a=add&domain=register"
+              href="https://www.valuehost.com.br/cliente/cart.php?a=add&domain=register"
               target="_blank"
               rel="noopener noreferrer"
               className={`inline-flex items-center justify-center px-6 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 ${isMobile ? 'w-full' : ''}`}
