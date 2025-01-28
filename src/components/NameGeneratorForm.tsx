@@ -101,15 +101,20 @@ const NameGeneratorForm = () => {
       {generatedNames.length > 0 && (
         <div className="mt-8 space-y-4">
           <div className={`${isMobile ? 'flex flex-col gap-4' : 'flex justify-between items-center'} mb-6`}>
-            <h2 className="text-xl font-semibold text-white">Sugestões de Nomes</h2>
-            <a
-              href="https://www.valuehost.com.br/cliente/cart.php?a=add&domain=register"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center px-6 py-3 bg-white hover:bg-white/90 text-[#377dff] font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-white/20 hover:-translate-y-0.5 ${isMobile ? 'w-full' : ''}`}
+            <h2 className="text-xl font-semibold text-[#333333]">Sugestões de Nomes</h2>
+            <Button
+              asChild
+              variant="secondary"
+              className="bg-[#377dff] hover:bg-[#377dff]/90 text-white font-semibold px-6 py-3 h-auto transition-all duration-300 shadow-lg hover:shadow-[#377dff]/20 hover:-translate-y-0.5"
             >
-              Registrar Domínio
-            </a>
+              <a
+                href="https://www.valuehost.com.br/cliente/cart.php?a=add&domain=register"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Registrar Domínio
+              </a>
+            </Button>
           </div>
           <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} gap-4`}>
             {generatedNames.map((name, index) => (
