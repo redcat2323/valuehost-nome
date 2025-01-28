@@ -103,9 +103,9 @@ const NameGeneratorForm = () => {
           <div className={`${isMobile ? 'flex flex-col gap-4' : 'flex justify-between items-center'} mb-6`}>
             <h2 className="text-xl font-semibold text-[#333333]">Sugestões de Nomes</h2>
             <Button
-              asChild
               variant="secondary"
               className="bg-[#377dff] hover:bg-[#377dff]/90 text-white font-semibold px-6 py-3 h-auto transition-all duration-300 shadow-lg hover:shadow-[#377dff]/20 hover:-translate-y-0.5"
+              asChild
             >
               <a
                 href="https://www.valuehost.com.br/cliente/cart.php?a=add&domain=register"
