@@ -1,9 +1,9 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Copy } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const NameGeneratorForm = () => {
@@ -13,26 +13,56 @@ const NameGeneratorForm = () => {
   const { toast } = useToast();
   const isMobile = useIsMobile();
 
-  const generateNamesWithAI = async (keyword: string) => {
-    try {
-      const { data, error } = await supabase.functions.invoke('generate-names', {
-        body: { keyword }
-      });
+  // Função local para gerar nomes baseados em palavras-chave
+  const generateNamesLocally = (keyword: string): string[] => {
+    const prefixes = ["Value", "Pro", "Tech", "Digi", "Net", "Web", "Cloud", "Smart", "Prime", "Fast"];
+    const suffixes = ["Host", "Link", "Tech", "Bit", "Net", "Web", "Cloud", "Connect", "Soft", "Hub"];
+    const domains = ["Solutions", "Systems", "Services", "Network", "Cloud", "Hosting", "Technology", "Digital", "Studio", "Group"];
 
-      if (error) {
-        console.error("Erro ao chamar a função:", error);
-        throw new Error(error.message);
+    // Algoritmo simples para gerar combinações baseadas na palavra-chave
+    const keywordParts = keyword.toLowerCase().split(/\s+/);
+    const suggestions: string[] = [];
+
+    // Cria combinações de nomes
+    for (let i = 0; i < 10; i++) {
+      const usePrefix = Math.random() > 0.3;
+      const useSuffix = Math.random() > 0.3;
+      const useDomain = Math.random() > 0.5;
+      
+      let name = "";
+      
+      // Adiciona um prefixo aleatório ou capitaliza a palavra-chave
+      if (usePrefix) {
+        const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+        name += randomPrefix;
+      } else {
+        // Usa parte da palavra-chave ou a palavra inteira
+        const keywordPart = keywordParts[Math.floor(Math.random() * keywordParts.length)];
+        name += keywordPart.charAt(0).toUpperCase() + keywordPart.slice(1);
       }
-
-      if (!data?.suggestions) {
-        throw new Error("Nenhuma sugestão retornada");
+      
+      // Adiciona um sufixo aleatório
+      if (useSuffix) {
+        const randomSuffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+        name += randomSuffix;
       }
-
-      return data.suggestions;
-    } catch (error) {
-      console.error("Erro ao gerar nomes:", error);
-      throw error;
+      
+      // Adiciona um domínio
+      if (useDomain) {
+        const randomDomain = domains[Math.floor(Math.random() * domains.length)];
+        name += " " + randomDomain;
+      }
+      
+      // Evita duplicatas
+      if (!suggestions.includes(name) && name.length > 2) {
+        suggestions.push(name);
+      } else {
+        // Se houver duplicata, tenta novamente
+        i--;
+      }
     }
+
+    return suggestions;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -48,12 +78,16 @@ const NameGeneratorForm = () => {
 
     setIsLoading(true);
     try {
-      const names = await generateNamesWithAI(keyword);
-      setGeneratedNames(names);
-      toast({
-        title: "Sucesso!",
-        description: "Nomes gerados com sucesso",
-      });
+      // Simula um pequeno atraso para dar a sensação de processamento
+      setTimeout(() => {
+        const names = generateNamesLocally(keyword);
+        setGeneratedNames(names);
+        toast({
+          title: "Sucesso!",
+          description: "Nomes gerados com sucesso",
+        });
+        setIsLoading(false);
+      }, 800);
     } catch (error) {
       console.error("Erro ao gerar nomes:", error);
       toast({
@@ -61,7 +95,6 @@ const NameGeneratorForm = () => {
         description: "Erro ao gerar nomes. Por favor, tente novamente mais tarde.",
         variant: "destructive",
       });
-    } finally {
       setIsLoading(false);
     }
   };
